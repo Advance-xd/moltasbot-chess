@@ -1,82 +1,9 @@
-# define the initial state of the board
-board = [['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
-         ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-         [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-         ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-         ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r']]
-
-# define the players
-WHITE = 'w'
-BLACK = 'b'
-
-# define the direction vectors for each piece
-DIRECTIONS = {
-    'N': (-1, -2),
-    'K': (-1, -1),
-    'B': (-1, -1),
-    'R': (-1, 0),
-    'Q': (-1, 0),
-    'P': (-1, 0),
-}
-
-def generate_moves(board, player):
-    """Generate all possible moves for the given player."""
-    moves = []
-    for r in range(8):
-        for c in range(8):
-            piece = board[r][c]
-            if piece == ' ' or piece.lower() != player:
-                continue
-            for dr, dc in DIRECTIONS[piece.upper()]:
-                r2 = r + dr
-                c2 = c + dc
-                # check if the move is on the board
-                if r2 < 0 or r2 > 7 or c2 < 0 or c2 > 7:
-                    continue
-                # check if the destination is empty or an enemy piece
-                if board[r2][c2] == ' ' or board[r2][c2].lower() != player:
-                    moves.append((r, c, r2, c2))
-    return moves
-
-def evaluate_board(board, player):
-    """Evaluate the board position for the given player."""
-    score = 0
-    # evaluate material advantage
-    for r in range(8):
-        for c in range(8):
-            piece = board[r][c]
-            if piece == ' ':
-                continue
-            if piece.lower() == player:
-                score += 1
-            else:
-                score -= 1
-    return score
-
-def search(board, player, depth):
-    """Search for the best move using minimax with alpha-beta pruning."""
-    # generate all possible moves
-    moves = generate_moves(board, player)
-    if depth == 0 or not moves:
-        return None, evaluate_board(board, player)
-    # initialize the best move and score
-    best_move = None
-    if player == WHITE:
-        best_score = float('inf')
-        for move in moves:
-            # simulate the move
-            board[move[2]][move[3]] = board[move[0]][move[1]]
-
 import cv2
 from PIL import ImageGrab
 import time
 import pyautogui
 import random
 
-# read the image
 
 
 
@@ -98,8 +25,6 @@ TEMPLATES = {
     'n': cv2.imread('pieces/bn.png'),  # black knight
     'p': cv2.imread('pieces/bp.png'),    # black pawn
 }
-
-# initialize the board
 
 mycolor = None
 
