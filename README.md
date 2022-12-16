@@ -1,7 +1,7 @@
 # moltasbot-chess
 
-## Current winrate - 75 %
-
+## Current winrate
+75 %
 
 ## How to use:
 * Use 1920x1080
