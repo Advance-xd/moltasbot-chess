@@ -10,3 +10,5 @@
 
 #### TODO
 * Pawn Promotion
+* Auto find chess board to fit every resolution
+* Windows 10 support
