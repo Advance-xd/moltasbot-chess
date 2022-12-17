@@ -1,7 +1,7 @@
 # moltasbot-chess
 
 ## Current winrate
-75 %
+88 %
 
 ## How to use:
 * Use 1920x1080
@@ -9,7 +9,4 @@
 * Chomre against bot on right
 
 #### TODO
-* Castling
 * Pawn Promotion
-
-

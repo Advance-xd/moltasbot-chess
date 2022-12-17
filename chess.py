@@ -75,7 +75,7 @@ def copymovefrombot():
     for y in range(0, 2, 2):
             for x in range(0, 2, 2):
                 color = pixles.getpixel((x, y))
-    if color[1] == 101 and color[2] == 101:
+    if color[1] == 101:
         print("bot won")
         pyautogui.moveTo(1585, 343)
         pyautogui.click()
@@ -104,11 +104,46 @@ def copymovefrombot():
                     times += 1
                     print("found should move to", a, b)
                     if times > 1:
-                        input("err")
+                        print("bot Castling")
+                        copybotcastling(right, left)
+                        
+                        return
                     else:
                         pyautogui.moveTo(96 +  8 * 97 - (b * 97) - 97/2 + randomnumber(), 191 + 8 * 97 - (a * 97) - 97/2 + randomnumber())
     time.sleep(randomnumber())
     pyautogui.click()
+    pyautogui.moveTo(96 - randomnumber(), 191 - randomnumber())
+    time.sleep(3 + randomnumber())
+    waitforenemy()
+
+def copybotcastling(right, left):
+    done = False
+    for a in range(8):
+        if right[a] != left[a]:
+            for b in range(8):
+                if right[a][b] != left[a][b] and not ((right[a][b].isupper() and mycolor == "black") or (right[a][b].islower() and mycolor == "white")):
+                    for c in range(8):
+                        if 1 < c and c < 6 and not done:
+                            if right[a][c].lower() == "r":
+                                if right[a][c - 1].lower() == "k":
+                                    pyautogui.moveTo(96 +  8 * 97 - ((c - 1) * 97) - 97/2 - randomnumber(), 191 + 8 * 97 - (a * 97) - 97/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    
+                                    print("castling king at ", a, c - 1)
+                                    pyautogui.moveTo(96 +  8 * 97 - ((c + 1) * 97) - 97/2 - randomnumber(), 191 + 8 * 97 - (a * 97) - 97/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    done = True
+                                elif right[a][c + 1].lower() == "k":
+                                    pyautogui.moveTo(96 +  8 * 97 - ((c - 1) * 97) - 97/2 - randomnumber(), 191 + 8 * 97 - (a * 97) - 97/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    print("castling king at ", a, c + 1)
+                                    pyautogui.moveTo(96 +  8 * 98 - ((c + 1) * 98) - 98/2 - randomnumber(), 191 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    done = True
     pyautogui.moveTo(96 - randomnumber(), 191 - randomnumber())
     time.sleep(3 + randomnumber())
     waitforenemy()
@@ -126,9 +161,13 @@ def copyenemymovetobot():
             for b in range(8):
                 if right[a][b] != left[a][b] and ((right[a][b].isupper() and mycolor == "black") or (right[a][b].islower() and mycolor == "white")):
                     times += 1
+                    print("times ", times)
                     print("found should move from", a, b)
                     if times > 1:
-                        input("err")
+                        print("enemy Castling")
+                        copyenemycastling(right, left)
+                        
+                        return
                     else:
                         pyautogui.moveTo(1045 +  8 * 98 - (b * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
     time.sleep(randomnumber())
@@ -142,7 +181,39 @@ def copyenemymovetobot():
                     pyautogui.moveTo(1045 +  8 * 98 - (b * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
     time.sleep(randomnumber())
     pyautogui.click()
-    pyautogui.moveTo(1045 -  randomnumber(), 186 - randomnumber())
+    pyautogui.moveTo(1045 - randomnumber(), 186 - randomnumber())
+    time.sleep(5)
+    copymovefrombot()
+
+def copyenemycastling(right, left):
+    done = False
+    for a in range(8):
+        if right[a] != left[a]:
+            for b in range(8):
+                if right[a][b] != left[a][b] and ((right[a][b].isupper() and mycolor == "black") or (right[a][b].islower() and mycolor == "white")):
+                    for c in range(8):
+                        if 1 < c and c < 6 and not done:
+                            if left[a][c].lower() == "r":
+                                if left[a][c - 1].lower() == "k":
+                                    pyautogui.moveTo(1045 +  8 * 98 - ((c + 1) * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    
+                                    print("castling king at ", a, c - 1)
+                                    pyautogui.moveTo(1045 +  8 * 98 - ((c - 1) * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    done = True
+                                elif left[a][c + 1].lower() == "k":
+                                    pyautogui.moveTo(1045 +  8 * 98 - ((c - 1) * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    print("castling king at ", a, c + 1)
+                                    pyautogui.moveTo(1045 +  8 * 98 - ((c + 1) * 98) - 98/2 - randomnumber(), 186 + 8 * 98 - (a * 98) - 98/2 - randomnumber())
+                                    time.sleep(randomnumber())
+                                    pyautogui.click()
+                                    done = True
+    pyautogui.moveTo(1045 - randomnumber(), 186 - randomnumber())
     time.sleep(5)
     copymovefrombot()
 
@@ -278,8 +349,4 @@ def getleftboard():
     #cv2.imshow("im", image2[7*SQUARE_SIZE[0]:(8)*SQUARE_SIZE[0], 7*SQUARE_SIZE[1]:(8)*SQUARE_SIZE[1]])
     #cv2.waitKey(0)
 
-
 checkcolor()
-
-
-#firstmoves()
